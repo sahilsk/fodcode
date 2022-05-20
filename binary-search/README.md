@@ -22,3 +22,8 @@
 11) Find ceil of element
 13) find target in an  infinite array
 15)  Minimum difference element in a sorted array
+
+
+## References
+
+- https://www.youtube.com/playlist?list=PL_z_8CaSLPWeYfhtuKHj-9MpYb6XQJ_f2

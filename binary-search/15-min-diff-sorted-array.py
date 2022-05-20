@@ -6,7 +6,11 @@ Given a sorted array, find the element in the array which has minimum difference
 import sys
 from tkinter import W
 
-def findMinDiffElement(nums, target):
+"""
+Brute force method: Find Ciel and Floor and find minimum among them.
+But you are forgetting one important thing about bs. ;) 
+"""
+def findMinDiffElementBrute(nums, target):
 
     l = 0
     r = len(nums) - 1
@@ -37,22 +41,54 @@ def findMinDiffElement(nums, target):
             lastfloor = mid
             l = mid + 1
 
-    # Find ciel
+    # Find ciel (reset old vars: l,r)
     lastciel = -1
 
+    l = 0
+    r = len(nums) - 1
     while l <= r:
         mid = l + (r-l)//2
-
-        if nums[mid] > target:
+        if nums[mid] >= target:
             lastciel = mid
             r = mid - 1
-        elif nums[mid] < target:
+        elif nums[mid] <= target:
             l = mid + 1
 
     if abs(nums[lastfloor] - target) < abs(nums[lastciel] - target):
         return lastfloor
     else:
-        lastciel
+        return lastciel
+
+
+
+"""
+Binary serach has a property. 
+If element is not found, the left and right will point to its neighborrs ;)
+
+"""
+
+
+def findMinDiff(nums, target ) -> int :
+
+    l = 0
+    r = len(nums) - 1
+
+    while l <= r:
+        mid = l + (r-l)//2
+
+        if nums[mid] == target:
+            return mid
+        elif nums[mid] > target:
+            r = mid - 1
+        elif nums[mid] < target:
+            l = mid + 1
+
+    ldiff = abs(target -nums[l])
+    rdiff = abs(target -nums[r])
+    if  ldiff < rdiff:
+        return l
+    else:
+        return r
 
 
 testcases =  {
@@ -62,5 +98,13 @@ testcases =  {
 }
 
 
+print("brute force: -----")
 for result, input in testcases.items():
-    print(f"Expected({result}): Output: ", findMinDiffElement(input[0], input[1]))
+    print(f"Expected({result}): Output: ", findMinDiffElementBrute(input[0], input[1]))
+
+
+print("Optimized Approache using BS property: -----")
+for result, input in testcases.items():
+    print(f"Expected({result}): Output: ", findMinDiff(input[0], input[1]))
+
+
