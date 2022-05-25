@@ -11,3 +11,15 @@ Input : mat[4][4] = { {10, 20, 30, 40},
               x = 29
 Output : Found at (2, 1)
 '''
+
+def searchInMatrix(mat, target):
+
+    m = len(mat) - 1
+    n = len( mat[0]) - 1
+
+    while m >= 0 and n >= 0 and 
+    
+
+
+
+

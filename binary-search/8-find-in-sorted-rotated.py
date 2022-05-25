@@ -66,8 +66,9 @@ def searchRotatedArray(nums:List[int], target:int) -> int :
     else:
         # element do not exist in either of the subarray
         return -1
-    
 
+
+    print("Search index : ", s, r)
     while s <= r:
         mid = s + (r-s)//2
         if nums[mid] == target:
@@ -75,14 +76,19 @@ def searchRotatedArray(nums:List[int], target:int) -> int :
         elif nums[mid] > target:
             r = mid -1
         else:
-            l = mid + 1
+            s = mid + 1
 
     return -1
 
 
+testcases = {
+    1: ([1, 3], 3),
+    0: ([11, 12, 15, 18, 2, 5, 6, 8], 11),
+    2: ([3,1,2], 1),
+    -1: ([1, 3], 0),
+    4: ([4, 5, 6, 7, 0, 1, 2], 0)
+}
 
-nums = [11, 12, 15, 18, 2, 5, 6, 8]
-print( searchRotatedArray(nums, 12))
-
-nums = [11, 12, 15, 18, 2, 5, 6, 8]
-print( searchRotatedArray(nums, 11))
+for result, input in testcases.items():
+    print("----------")
+    print( searchRotatedArray(input[0], input[1]) , result)
