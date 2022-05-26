@@ -1,4 +1,3 @@
-from turtle import left, right
 from runner import  runner
 """
 238. Product of Array Except Self
@@ -37,7 +36,7 @@ Method 1:
 Naive method: 
     maintain list of Zeroes
 '''
-def productEceptSelf(nums:list[int]) -> list[int]:
+def productExceptSelf(nums:list[int]) -> list[int]:
 
     if len(nums) < 2:
         return nums
@@ -83,26 +82,38 @@ rightproduct:[24,12,4,1]
 '''
 
 def productExceptSelfPresum(nums:list[list]) -> list[int]:
-
-
     lastElement = 1
     leftProduct = []
-    rightProduct = []
 
-    # calculate leftProduct
-    '''
-    1, 2, 3, 4
-
-    '''
-    leftProduct=[1]
+    leftProduct = [1]
+    lastProduct = 1
+    for i in range(1, len(nums)):
+        leftProduct.append(lastProduct*nums[i-1])
+        lastProduct = lastProduct * nums[i-1]
 
 
+    rightProduct = [1]
+    lastProduct = 1
+    for i in range(len(nums)-2, -1, -1):
+        rightProduct.append( lastProduct * nums[i+1]  )
+        lastProduct = lastProduct * nums[i+1]
+    
+    rightProduct.reverse()
+
+    # print(rightProduct, leftProduct)
+
+    answer = [0] * len(nums)
+    for idx, v in enumerate(nums):
+        answer[idx] = leftProduct[idx] * rightProduct[idx]
+        
+    return answer
 
 
 testcases = {
     "[24,12,8,6]": ([1, 2, 3, 4], ),
-    # "[0,0,9,0,0]": ([-1, 1, 0, -3, 3], ),
-    # "[1]": ([1],)
+    "[0,0,9,0,0]": ([-1, 1, 0, -3, 3], ),
+    "[1]": ([1],)
 }
-# runner(productEceptSelf, testcases)
+runner(productExceptSelf, testcases)
+print("second method==")
 runner(productExceptSelfPresum, testcases)
